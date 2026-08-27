@@ -13,8 +13,10 @@ source:
   sha256: c11dc515e00b307cef09202b9b3981fc2935da3f9b4d5a8d8d49fae49948d347
 
 build:
-  skip: py < 311
-  number: 0
+  number: 1
+  skip: not is_python_min
+  python:
+    version_independent: true
   script:
     - ${{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
     - cd rust && cargo-bundle-licenses --format yaml --output ../THIRDPARTY.yml
@@ -32,6 +34,7 @@ requirements:
     - cargo-bundle-licenses
   host:
     - python ${{ python_min }}.*
+    - python-abi3 ${{ python_min }}.*
     - maturin >=1.13,<2.0
     - pip
   run:
@@ -48,6 +51,14 @@ tests:
       python_version:
         - ${{ python_min }}.*
         - "*"
+
+  - requirements:
+      run:
+        - abi3audit
+    script:
+      - if: unix
+        then: abi3audit $SP_DIR/scippneutron_algorithms/_scippneutron_algorithms_lib.abi3.so -s -v --assume-minimum-abi3 ${{ python_min }}
+        else: abi3audit %SP_DIR%/scippneutron_algorithms/_scippneutron_algorithms_lib.pyd -s -v --assume-minimum-abi3 ${{ python_min }}
 
 about:
   summary: Optimized and compiled algorithms for ScippNeutron
