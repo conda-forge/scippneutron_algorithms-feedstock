@@ -57,8 +57,8 @@ tests:
         - abi3audit
     script:
       - if: unix
-        then: abi3audit $SP_DIR/mypackage.abi3.so -s -v --assume-minimum-abi3 ${{ python_min }}
-        else: abi3audit %SP_DIR%/mypackage.pyd -s -v --assume-minimum-abi3 ${{ python_min }}
+        then: abi3audit $SP_DIR/scippneutron_algorithms/_scippneutron_algorithms_lib.abi3.so -s -v --assume-minimum-abi3 ${{ python_min }}
+        else: abi3audit %SP_DIR%/scippneutron_algorithms/_scippneutron_algorithms_lib.pyd -s -v --assume-minimum-abi3 ${{ python_min }}
 
 about:
   summary: Optimized and compiled algorithms for ScippNeutron
