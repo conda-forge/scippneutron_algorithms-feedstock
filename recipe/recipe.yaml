@@ -13,7 +13,7 @@ source:
   sha256: c11dc515e00b307cef09202b9b3981fc2935da3f9b4d5a8d8d49fae49948d347
 
 build:
-  number: 1
+  number: 2
   skip: not is_python_min
   python:
     version_independent: true
